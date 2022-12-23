@@ -15,7 +15,7 @@ part 'src/enums.dart';
 
 part 'src/utils.dart';
 
-const Duration _kDropdownMenuDuration = Duration(milliseconds: 300);
+//const Duration _kDropdownMenuDuration = Duration(milliseconds: 300);
 const double _kMenuItemHeight = kMinInteractiveDimension;
 const double _kDenseButtonHeight = 24.0;
 const EdgeInsets _kMenuItemPadding = EdgeInsets.symmetric(horizontal: 16.0);
@@ -609,6 +609,7 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
     this.searchController,
     this.searchInnerWidget,
     this.searchMatchFn,
+    this.dropdownTransitionDuration = const Duration(milliseconds:  300),
   }) : itemHeights =
             customItemsHeights ?? List<double>.filled(items.length, itemHeight);
 
@@ -644,8 +645,10 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
   final List<double> itemHeights;
   ScrollController? scrollController;
 
+  final Duration dropdownTransitionDuration;
+
   @override
-  Duration get transitionDuration => _kDropdownMenuDuration;
+  Duration get transitionDuration => this.dropdownTransitionDuration;
 
   @override
   final bool barrierDismissible;
@@ -1122,6 +1125,7 @@ class DropdownButton2<T> extends StatefulWidget {
     this.searchController,
     this.searchInnerWidget,
     this.searchMatchFn,
+    this.dropdownTransitionDuration = const Duration(milliseconds:  300),
     // When adding new arguments, consider adding similar arguments to
     // DropdownButtonFormField.
   })  : assert(
@@ -1205,6 +1209,7 @@ class DropdownButton2<T> extends StatefulWidget {
     this.searchInnerWidget,
     this.searchMatchFn,
     this.formFieldCallBack,
+    this.dropdownTransitionDuration = const Duration(milliseconds:  300),
   }) : assert(
           items == null ||
               items.isEmpty ||
@@ -1519,6 +1524,8 @@ class DropdownButton2<T> extends StatefulWidget {
   /// DropdownButtonFormField2 to update the FormField's focus.
   final _OnMenuStateChangeFn? formFieldCallBack;
 
+  final Duration dropdownTransitionDuration;
+
   @override
   State<DropdownButton2<T>> createState() => DropdownButton2State<T>();
 }
@@ -1720,6 +1727,7 @@ class DropdownButton2State<T> extends State<DropdownButton2<T>>
       searchController: widget.searchController,
       searchInnerWidget: widget.searchInnerWidget,
       searchMatchFn: widget.searchMatchFn,
+      dropdownTransitionDuration: widget.dropdownTransitionDuration
     );
 
     _isMenuOpen = true;
